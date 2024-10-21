@@ -9,4 +9,6 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     boolean existsMedicoById(Long id);
 
     boolean existsMedicoByCi(Integer ci);
+
+    boolean existsMedicoByEmail(String email);
 }

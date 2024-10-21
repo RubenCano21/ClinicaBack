@@ -12,5 +12,7 @@ public interface MedicoService {
     void eliminar(Long id);
     Medico actualizar(Medico medico);
 
+    List<Medico> findMedicoByEspecialidad(Long especialidadId);
+
     //api/pacientes/listar/registrar/eliminar
 }

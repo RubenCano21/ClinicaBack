@@ -19,11 +19,14 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+//    @Column(nullable = false, unique = true)
     private Integer ci;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;
 
+//    @Column(nullable = false, unique = true)
     private String email;
 
     private String telefono;

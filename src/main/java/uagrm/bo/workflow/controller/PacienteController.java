@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import uagrm.bo.workflow.exceptions.PacienteNotFoundException;
+import uagrm.bo.workflow.exceptions.PacientesNotFoundException;
 import uagrm.bo.workflow.model.Paciente;
 import uagrm.bo.workflow.service.PacienteService;
 
@@ -23,8 +25,17 @@ public class PacienteController {
 
 
     @GetMapping("/listar")
-    public List<Paciente> listar() {
-        return pacienteService.listar();
+    public ResponseEntity<List<Paciente>> listar() {
+        return new ResponseEntity<>(pacienteService.listar(), HttpStatus.OK);
+    }
+
+    // metodo para buscar un paciente por el id
+    @GetMapping("/{id}")
+    public ResponseEntity<Paciente> obtenerPaciente(@PathVariable Long id) {
+        Paciente paciente = pacienteService.findPacienteById(id)
+                .orElseThrow(() -> new PacientesNotFoundException(id));
+
+        return new ResponseEntity<>(paciente, HttpStatus.OK);
     }
 
     @PostMapping

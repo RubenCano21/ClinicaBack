@@ -3,12 +3,12 @@ package uagrm.bo.workflow.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uagrm.bo.workflow.exceptions.EspecialidadNotFoundException;
 import uagrm.bo.workflow.exceptions.MedicoNotFoundException;
-import uagrm.bo.workflow.exceptions.PacienteNotFoundException;
+import uagrm.bo.workflow.model.Especialidad;
 import uagrm.bo.workflow.model.Medico;
-import uagrm.bo.workflow.model.Paciente;
+import uagrm.bo.workflow.repository.EspecialidadRepository;
 import uagrm.bo.workflow.repository.MedicoRepository;
-import uagrm.bo.workflow.repository.PacienteRepository;
 
 import java.util.List;
 
@@ -17,6 +17,9 @@ public class MedicoServiceImpl implements MedicoService{
 
     @Autowired
     private MedicoRepository medicoRepository;
+
+    @Autowired
+    private EspecialidadRepository especialidadRepository;
 
 
     @Override
@@ -36,6 +39,9 @@ public class MedicoServiceImpl implements MedicoService{
         if (medicoRepository.existsMedicoByCi(medico.getCi())) {
             throw new IllegalArgumentException("El medico ya existe");
         }
+        if (medicoRepository.existsMedicoByEmail(medico.getEmail())){
+            throw new IllegalArgumentException("Correo invalido, verifique e intente nuevamente");
+        }
         return medicoRepository.save(medico);
     }
 
@@ -52,5 +58,12 @@ public class MedicoServiceImpl implements MedicoService{
             throw new MedicoNotFoundException("Medico no encontrado con id: " + medico.getId());
         }
         return medicoRepository.save(medico);
+    }
+
+    @Override
+    public List<Medico> findMedicoByEspecialidad(Long especialidadId) {
+        Especialidad especialidad = especialidadRepository.findById(especialidadId)
+                .orElseThrow(() -> new EspecialidadNotFoundException(especialidadId));
+        return especialidad.getMedicos();
     }
 }

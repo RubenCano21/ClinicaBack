@@ -34,6 +34,9 @@ public class PacienteServiceImpl implements PacienteService{
         if (pacienteRepository.existsPacienteByCi(paciente.getCi())) {
             throw new IllegalArgumentException("Ya existe un paciente con el ci: " + paciente.getCi());
         }
+        if (pacienteRepository.existsPacienteByEmail(paciente.getEmail())) {
+            throw new IllegalArgumentException("Ya existe un paciente con el email: " + paciente.getEmail());
+        }
         return pacienteRepository.save(paciente);
     }
 
@@ -55,5 +58,10 @@ public class PacienteServiceImpl implements PacienteService{
     @Override
     public boolean existsByEmail(String email) {
         return pacienteRepository.existsPacienteByEmail(email);
+    }
+
+    @Override
+    public Optional<Paciente> findPacienteById(Long id) {
+        return pacienteRepository.findById(id);
     }
 }

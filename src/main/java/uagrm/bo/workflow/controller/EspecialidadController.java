@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import uagrm.bo.workflow.model.Medico;
-import uagrm.bo.workflow.service.MedicoService;
+import uagrm.bo.workflow.model.Especialidad;
+import uagrm.bo.workflow.service.EspecialidadService;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,63 +15,56 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/medicos")
-public class MedicoController {
+@RequestMapping("/api/especialidad")
+public class EspecialidadController {
 
     @Autowired
-    private MedicoService medicoService;
+    private EspecialidadService especialidadService;
 
 
     @GetMapping("/listar")
-    public List<Medico> listar() {
-        return medicoService.listar();
+    public ResponseEntity<List<Especialidad>> listar() {
+        return new ResponseEntity<>(especialidadService.listar(), HttpStatus.OK);
     }
 
-    @GetMapping("/especialidad({especialidadId}")
-    public ResponseEntity<List<Medico>> especialidad(@PathVariable Long especialidadId) {
-        return new ResponseEntity<>(medicoService.findMedicoByEspecialidad(especialidadId), HttpStatus.OK);
-    }
 
     @PostMapping
-    public ResponseEntity<?> crearMedico(@Valid @RequestBody Medico medico, BindingResult result) {
+    public ResponseEntity<?> crearEspecialidad(@Valid @RequestBody Especialidad especialidad, BindingResult result) {
         if (result.hasFieldErrors()) {
             return  validation(result);
         }
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(medicoService.guardar(medico));
-        }catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(especialidadService.guardar(especialidad));
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", e.getMessage()));
         }
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrar(@Valid @RequestBody Medico medico, BindingResult result) {
-        return crearMedico(medico, result);
+    public ResponseEntity<?> registrar(@Valid @RequestBody Especialidad especialidad, BindingResult result) {
+        return crearEspecialidad(especialidad, result);
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> actualizarMedico(@Valid @RequestBody Medico medico, @PathVariable Long id) {
-        Medico medicoExistente = medicoService.buscar(id);
-        if (medicoExistente == null) {
+    public ResponseEntity<?> actualizarEspecialidad(@Valid @RequestBody Especialidad especialidad, @PathVariable Long id) {
+        Especialidad especialidadExistente = especialidadService.buscar(id);
+        if (especialidadExistente == null) {
             return ResponseEntity.notFound().build(); // Devuelve un 404 si el pacioente no existe
         }
-        medico.setId(id); // aseguramos que se actualice el paciente correcto
-        return ResponseEntity.status(HttpStatus.OK).body(medicoService.actualizar(medico));
+        especialidad.setId(id); // aseguramos que se actualice el especialidad correcto
+        return ResponseEntity.status(HttpStatus.OK).body(especialidadService.actualizar(especialidad));
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> eliminarMedico(@PathVariable Long id) {
-        Medico medico = medicoService.buscar(id);
-        if (medico == null) {
+    public ResponseEntity<?> eliminarEspecialidad(@PathVariable Long id) {
+        Especialidad especialidad = especialidadService.buscar(id);
+        if (especialidad == null) {
             return ResponseEntity.notFound().build();
         }else {
-            medicoService.eliminar(id);
+            especialidadService.eliminar(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
-
-
-
 
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
