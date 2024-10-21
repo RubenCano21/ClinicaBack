@@ -1,6 +1,6 @@
 package uagrm.bo.workflow.validation;
 
-import uagrm.bo.workflow.servicio.UserService;
+import uagrm.bo.workflow.service.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;

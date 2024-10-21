@@ -1,4 +1,4 @@
-package uagrm.bo.workflow.servicio;
+package uagrm.bo.workflow.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uagrm.bo.workflow.entidades.Role;
-import uagrm.bo.workflow.entidades.User;
-import uagrm.bo.workflow.repositorio.RoleRepository;
-import uagrm.bo.workflow.repositorio.UserRepository;
+import uagrm.bo.workflow.model.Role;
+import uagrm.bo.workflow.model.User;
+import uagrm.bo.workflow.repository.RoleRepository;
+import uagrm.bo.workflow.repository.UserRepository;
 
 
 @Service

@@ -48,12 +48,20 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/logout").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/reports/pdf").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/reports/excel").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/reports/send-email").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pacientes").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pacientes/registrar").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/pacientes/actualizar/{id}").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/pacientes/eliminar/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/medico").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/medico/registrar").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/medico/actualizar/{id}").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/medico/eliminar/{id}").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/reports/pdf").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/reports/excel").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/reports/send-email").permitAll()
                         .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))
@@ -67,7 +75,7 @@ public class SpringSecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedOriginPatterns(List.of("**"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

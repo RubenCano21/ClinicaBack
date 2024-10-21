@@ -1,4 +1,4 @@
-package uagrm.bo.workflow.servicio;
+package uagrm.bo.workflow.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uagrm.bo.workflow.entidades.User;
-import uagrm.bo.workflow.repositorio.UserRepository;
+import uagrm.bo.workflow.model.User;
+import uagrm.bo.workflow.repository.UserRepository;
 
 
 @Service

@@ -1,4 +1,4 @@
-package uagrm.bo.workflow.controlador;
+package uagrm.bo.workflow.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uagrm.bo.workflow.entidades.User;
-import uagrm.bo.workflow.servicio.UserService;
+import uagrm.bo.workflow.model.User;
+import uagrm.bo.workflow.service.UserService;
 
 import jakarta.validation.Valid;
 

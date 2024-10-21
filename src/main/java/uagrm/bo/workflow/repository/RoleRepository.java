@@ -1,10 +1,10 @@
-package uagrm.bo.workflow.repositorio;
+package uagrm.bo.workflow.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import uagrm.bo.workflow.entidades.Role;
+import uagrm.bo.workflow.model.Role;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
 

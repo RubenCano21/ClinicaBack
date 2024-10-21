@@ -1,4 +1,4 @@
-package uagrm.bo.workflow.entidades;
+package uagrm.bo.workflow.model;
 
 import java.util.ArrayList;
 import java.util.List;

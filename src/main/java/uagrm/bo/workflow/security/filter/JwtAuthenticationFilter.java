@@ -24,9 +24,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uagrm.bo.workflow.entidades.User;
+import uagrm.bo.workflow.model.User;
 
-import static uagrm.bo.workflow.security.SpringSecurityConfig.*;
 import static uagrm.bo.workflow.security.TokenJWTConfig.*;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

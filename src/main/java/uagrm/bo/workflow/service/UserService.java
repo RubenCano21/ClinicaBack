@@ -1,6 +1,6 @@
-package uagrm.bo.workflow.servicio;
+package uagrm.bo.workflow.service;
 
-import uagrm.bo.workflow.entidades.User;
+import uagrm.bo.workflow.model.User;
 
 import java.util.List;
 
