@@ -33,6 +33,9 @@ public class MedicoServiceImpl implements MedicoService{
     @Override
     @Transactional
     public Medico guardar(Medico medico) {
+        if (medicoRepository.existsMedicoByCi(medico.getCi())) {
+            throw new IllegalArgumentException("El medico ya existe");
+        }
         return medicoRepository.save(medico);
     }
 

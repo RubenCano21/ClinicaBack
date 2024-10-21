@@ -1,7 +1,6 @@
 package uagrm.bo.workflow.service;
 
 import uagrm.bo.workflow.model.Medico;
-import uagrm.bo.workflow.model.Paciente;
 
 import java.util.List;
 

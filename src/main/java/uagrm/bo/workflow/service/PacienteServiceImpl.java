@@ -31,6 +31,9 @@ public class PacienteServiceImpl implements PacienteService{
     @Override
     @Transactional
     public Paciente guardar(Paciente paciente) {
+        if (pacienteRepository.existsPacienteByCi(paciente.getCi())) {
+            throw new IllegalArgumentException("Ya existe un paciente con el ci: " + paciente.getCi());
+        }
         return pacienteRepository.save(paciente);
     }
 
@@ -47,5 +50,10 @@ public class PacienteServiceImpl implements PacienteService{
             throw new PacienteNotFoundException("Paciente no encontrado con id: " + paciente.getId());
         }
         return pacienteRepository.save(paciente);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return pacienteRepository.existsPacienteByEmail(email);
     }
 }

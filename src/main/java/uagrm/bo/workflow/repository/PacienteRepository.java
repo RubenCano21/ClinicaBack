@@ -9,4 +9,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     boolean existsPacienteById(Long id);
 
+    boolean existsPacienteByCi(Integer ci);
+
+    boolean existsPacienteByEmail(String email);
 }

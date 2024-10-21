@@ -7,37 +7,41 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import uagrm.bo.workflow.model.Medico;
-import uagrm.bo.workflow.model.Paciente;
 import uagrm.bo.workflow.service.MedicoService;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/medico")
+@RequestMapping("/api/medicos")
 public class MedicoController {
 
     @Autowired
     private MedicoService medicoService;
 
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Medico> listar() {
         return medicoService.listar();
     }
 
     @PostMapping
-    public ResponseEntity<?> crearPaciente(@Valid @RequestBody Medico medico, BindingResult result) {
+    public ResponseEntity<?> crearMedico(@Valid @RequestBody Medico medico, BindingResult result) {
         if (result.hasFieldErrors()) {
             return  validation(result);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(medicoService.guardar(medico));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(medicoService.guardar(medico));
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", e.getMessage()));
+        }
     }
 
     @PostMapping("/registrar")
     public ResponseEntity<?> registrar(@Valid @RequestBody Medico medico, BindingResult result) {
-        return crearPaciente(medico, result);
+        return crearMedico(medico, result);
     }
 
     @PutMapping("/actualizar/{id}")

@@ -28,7 +28,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<User> list() {
         return service.findAll();
     }

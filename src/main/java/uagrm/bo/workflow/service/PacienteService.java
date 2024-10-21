@@ -12,5 +12,7 @@ public interface PacienteService {
     void eliminar(Long id);
     Paciente actualizar(Paciente paciente);
 
+    boolean existsByEmail(String email);
+
     //api/pacientes/listar/registrar/eliminar
 }

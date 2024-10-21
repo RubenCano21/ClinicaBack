@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import uagrm.bo.workflow.model.Paciente;
 import uagrm.bo.workflow.service.PacienteService;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class PacienteController {
     private PacienteService pacienteService;
 
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Paciente> listar() {
         return pacienteService.listar();
     }
@@ -31,7 +32,11 @@ public class PacienteController {
         if (result.hasFieldErrors()) {
             return  validation(result);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(pacienteService.guardar(paciente));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(pacienteService.guardar(paciente));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", e.getMessage()));
+        }
     }
 
     @PostMapping("/registrar")

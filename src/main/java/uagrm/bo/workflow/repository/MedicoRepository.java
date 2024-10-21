@@ -7,4 +7,6 @@ import uagrm.bo.workflow.model.Medico;
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     boolean existsMedicoById(Long id);
+
+    boolean existsMedicoByCi(Integer ci);
 }
