@@ -25,4 +25,10 @@ public class Especialidad {
     @ManyToMany(mappedBy = "especialidades")
     @JsonIgnore
     private List<Medico> medicos = new ArrayList<>();
+
+    // Método para agregar médico
+    public void addMedico(Medico medico) {
+        this.medicos.add(medico);
+        medico.getEspecialidades().add(this); // Asegura la relación bidireccional
+    }
 }

@@ -1,13 +1,12 @@
 package uagrm.bo.workflow.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,6 +19,8 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private Integer ci;
     private String nombre;
     private String apellido;
@@ -35,4 +36,25 @@ public class Medico {
             inverseJoinColumns = @JoinColumn(name = "especialidad_id")
     )
     private List<Especialidad> especialidades = new ArrayList<>();
+
+
+    // Relación ManyToMany con Horario
+    @ManyToMany
+    @JoinTable(
+            name = "medico_horario",
+            joinColumns = @JoinColumn(name = "medico_id"),
+            inverseJoinColumns = @JoinColumn(name = "horario_id")
+    )
+    private List<Horario> horarios = new ArrayList<>();
+
+    public Medico(Long id) {
+        this.id = id;
+    }
+
+
+    // Método para agregar especialidad
+    public void addEspecialidad(Especialidad especialidad) {
+        this.especialidades.add(especialidad);
+        especialidad.getMedicos().add(this); // Asegura la relación bidireccional
+    }
 }

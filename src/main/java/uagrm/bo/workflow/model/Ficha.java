@@ -3,6 +3,7 @@ package uagrm.bo.workflow.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -30,6 +31,6 @@ public class Ficha {
     @JoinColumn(name = "horario_id")
     private Horario horario;
 
-    private Date fechaConsulta;
+    private LocalDate fechaConsulta;
     private Integer cantDisponibles;
 }

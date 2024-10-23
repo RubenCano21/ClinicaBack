@@ -49,9 +49,9 @@ public class EspecialidadController {
     public ResponseEntity<?> actualizarEspecialidad(@Valid @RequestBody Especialidad especialidad, @PathVariable Long id) {
         Especialidad especialidadExistente = especialidadService.buscar(id);
         if (especialidadExistente == null) {
-            return ResponseEntity.notFound().build(); // Devuelve un 404 si el pacioente no existe
+            return ResponseEntity.notFound().build(); // Devuelve un 404 si la especialidad no existe
         }
-        especialidad.setId(id); // aseguramos que se actualice el especialidad correcto
+        especialidad.setId(id); // aseguramos que se actualice la especialidad correcta
         return ResponseEntity.status(HttpStatus.OK).body(especialidadService.actualizar(especialidad));
     }
 

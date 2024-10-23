@@ -6,6 +6,7 @@ import uagrm.bo.workflow.exceptions.*;
 import uagrm.bo.workflow.model.*;
 import uagrm.bo.workflow.repository.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,6 +32,9 @@ public class FichaServiceImpl implements FichaService{
     public Ficha asignarFicha(Long pacienteId, Long especialidadId, Long medicoId,
                               Long horarioId) {
 
+        Horario horario = horarioRepository.findById(horarioId)
+                .orElseThrow(() -> new HorarioNotFoundException(horarioId));
+
         Paciente paciente = pacienteRepository.findById(pacienteId)
                 .orElseThrow(() -> new PacientesNotFoundException(pacienteId));
 
@@ -40,16 +44,22 @@ public class FichaServiceImpl implements FichaService{
         Medico medico = medicoRepository.findById(medicoId)
                 .orElseThrow(() -> new MedicosNotFoundException(medicoId));
 
-        Horario horario = horarioRepository.findById(horarioId)
-                .orElseThrow(() -> new HorarioNotFoundException(horarioId));
+        // contar cuantas fichas ya estan asignadas a este horario
+        int fichasAsignadas = fichaRepository.countByMedicoIdAndHorarioId(medicoId, horarioId);
+
+        // verificar si hay espacio disponible
+        if (fichasAsignadas >= horario.getCapacidad()) {
+            throw new IllegalArgumentException("No hay fichas disponibles para este horario");
+        }
 
         Ficha ficha = new Ficha();
 
         ficha.setPaciente(paciente);
         ficha.setEspecialidad(especialidad);
-        ficha.setMedico(medico);
+        ficha.setMedico (medico);
         ficha.setHorario(horario);
-        ficha.setCantDisponibles(horario.getCapacidad());
+        ficha.setCantDisponibles(horario.getCapacidad() - fichasAsignadas);
+        ficha.setFechaConsulta(LocalDate.now());
 
         return fichaRepository.save(ficha);
     }
