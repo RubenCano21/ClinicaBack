@@ -69,6 +69,8 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/horarios/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/horarios/registrar").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/horarios/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/medico-horarios/listar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/medico-horarios/asignar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/consultorios").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/consultorios/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/consultorios/registrar").permitAll()

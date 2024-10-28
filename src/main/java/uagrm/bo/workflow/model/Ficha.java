@@ -31,7 +31,7 @@ public class Ficha {
     @JoinColumn(name = "horario_id")
     private Horario horario;
 
-    @Future
+
     private LocalDate fechaConsulta;
 
     private Integer cantDisponibles;
