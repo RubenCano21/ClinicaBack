@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import uagrm.bo.workflow.exceptions.PacienteNotFoundException;
 import uagrm.bo.workflow.exceptions.PacientesNotFoundException;
 import uagrm.bo.workflow.model.Paciente;
 import uagrm.bo.workflow.service.PacienteService;
@@ -24,6 +23,7 @@ public class PacienteController {
     private PacienteService pacienteService;
 
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/listar")
     public ResponseEntity<List<Paciente>> listar() {
         return new ResponseEntity<>(pacienteService.listar(), HttpStatus.OK);
@@ -75,9 +75,6 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
-
-
-
 
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errores = new HashMap<>();

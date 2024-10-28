@@ -11,4 +11,6 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     boolean existsMedicoByCi(Integer ci);
 
     boolean existsMedicoByEmail(String email);
+
+
 }

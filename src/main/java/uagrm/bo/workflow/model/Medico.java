@@ -1,5 +1,6 @@
 package uagrm.bo.workflow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -39,13 +40,19 @@ public class Medico {
 
 
     // Relación ManyToMany con Horario
-    @ManyToMany
-    @JoinTable(
-            name = "medico_horario",
-            joinColumns = @JoinColumn(name = "medico_id"),
-            inverseJoinColumns = @JoinColumn(name = "horario_id")
-    )
-    private List<Horario> horarios = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "medico_horario",
+//            joinColumns = @JoinColumn(name = "medico_id"),
+//            inverseJoinColumns = @JoinColumn(name = "horario_id")
+//    )
+//    private List<Horario> horarios = new ArrayList<>();
+
+    // Relación OneToMany con Historial
+    @OneToMany(mappedBy = "medico")
+    @JsonIgnore
+    private List<Historial> historiales = new ArrayList<>();
+
 
     public Medico(Long id) {
         this.id = id;

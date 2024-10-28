@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.exceptions.HorarioDuplicadoException;
 import uagrm.bo.workflow.exceptions.ResourceNotFoundException;
 import uagrm.bo.workflow.model.Horario;
-import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.repository.HorarioRepository;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class HorarioServiceImpl implements HorarioService {
     @Transactional
     public Horario crearHorario(Horario horario) {
         // Opcional: Verificar que no exista un horario duplicado para el mismo médico y hora
-        if (horarioRepository.existsByMedicosAndHoraInicioAndHoraFin(
-                 horario.getMedicos(), horario.getHoraInicio(), horario.getHoraFin())) {
+        if (horarioRepository.existsByHoraInicioAndHoraFin(
+                  horario.getHoraInicio(), horario.getHoraFin())) {
             throw new HorarioDuplicadoException("El médico ya tiene un horario en ese rango de horas");
         }
 

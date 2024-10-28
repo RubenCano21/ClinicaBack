@@ -2,6 +2,7 @@ package uagrm.bo.workflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.exceptions.*;
 import uagrm.bo.workflow.model.*;
 import uagrm.bo.workflow.repository.*;
@@ -29,6 +30,7 @@ public class FichaServiceImpl implements FichaService{
 
 
     @Override
+    @Transactional
     public Ficha asignarFicha(Long pacienteId, Long especialidadId, Long medicoId,
                               Long horarioId) {
 
@@ -65,6 +67,7 @@ public class FichaServiceImpl implements FichaService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Ficha> listarFichas() {
         return fichaRepository.findAll();
     }

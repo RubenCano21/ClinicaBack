@@ -34,4 +34,5 @@ public class FichaController {
             return new ResponseEntity<>(Collections.singletonMap("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
 }

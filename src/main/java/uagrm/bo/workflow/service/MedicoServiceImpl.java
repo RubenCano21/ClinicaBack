@@ -61,6 +61,7 @@ public class MedicoServiceImpl implements MedicoService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Medico> findMedicoByEspecialidad(Long especialidadId) {
         Especialidad especialidad = especialidadRepository.findById(especialidadId)
                 .orElseThrow(() -> new EspecialidadNotFoundException(especialidadId));

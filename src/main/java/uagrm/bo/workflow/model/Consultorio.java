@@ -1,5 +1,6 @@
 package uagrm.bo.workflow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class Consultorio {
     private Long id;
     private String nombre;
 
-    @OneToMany(mappedBy = "consultorio")
-    private List<Horario> horarios;
+//    @OneToMany(mappedBy = "consultorio")
+//    @JsonIgnore
+//    private List<Horario> horarios;
 }

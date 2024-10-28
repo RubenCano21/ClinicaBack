@@ -33,10 +33,10 @@ public class HorarioController {
     public ResponseEntity<Horario> registrarHorario(@RequestBody Horario horario) {
 
         // obtener la lista de medicos
-        List<Medico> medicos = horario.getMedicos().stream()
-                .map(m -> new Medico(m.getId()))
-                .collect(Collectors.toList());
-        horario.setMedicos(medicos);
+//        List<Medico> medicos = horario.getMedicos().stream()
+//                .map(m -> new Medico(m.getId()))
+//                .collect(Collectors.toList());
+//        horario.setMedicos(medicos);
 
         Horario nuevoHorario = horarioService.crearHorario(horario);
         return new ResponseEntity<>(nuevoHorario, HttpStatus.CREATED);
