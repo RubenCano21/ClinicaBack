@@ -11,4 +11,6 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     boolean existsByHoraInicioAndHoraFin(LocalTime horaInicio, LocalTime horaFin);
 
+    boolean existsByHoraInicioAndHoraFinAndDia(LocalTime horaInicio, LocalTime horaFin, String dia);
+
 }

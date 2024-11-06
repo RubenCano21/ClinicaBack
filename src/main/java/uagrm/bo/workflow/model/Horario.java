@@ -33,8 +33,8 @@ public class Horario {
     @NotNull
     private LocalTime horaFin;
 
-    @Min(1) //minimo una ficha se le debe asignar
-    private Integer capacidad; // Cantidad de fichas por horario
+//    @Min(1) //minimo una ficha se le debe asignar
+//    private Integer capacidad; // Cantidad de fichas por horario
 
     // relacion con consultorio (un horario pertenece a un consultorio especifico)♠
 //    @ManyToOne

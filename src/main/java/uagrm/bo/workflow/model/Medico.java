@@ -30,13 +30,9 @@ public class Medico {
     private String sexo;
 
     // Relación ManyToMany con Especialidad
-    @ManyToMany
-    @JoinTable(
-            name = "medico_especialidad",
-            joinColumns = @JoinColumn(name = "medico_id"),
-            inverseJoinColumns = @JoinColumn(name = "especialidad_id")
-    )
-    private List<Especialidad> especialidades = new ArrayList<>();
+    @OneToMany(mappedBy = "medico")
+    @JsonIgnore
+    private List<MedicoEspecialidad> especialidades = new ArrayList<>();
 
 
     // Relación ManyToMany con Horario
@@ -59,9 +55,4 @@ public class Medico {
     }
 
 
-    // Método para agregar especialidad
-    public void addEspecialidad(Especialidad especialidad) {
-        this.especialidades.add(especialidad);
-        especialidad.getMedicos().add(this); // Asegura la relación bidireccional
-    }
 }

@@ -20,10 +20,10 @@ public class HorarioServiceImpl implements HorarioService {
     @Override
     @Transactional
     public Horario crearHorario(Horario horario) {
-        // Opcional: Verificar que no exista un horario duplicado para el mismo médico y hora
-        if (horarioRepository.existsByHoraInicioAndHoraFin(
-                  horario.getHoraInicio(), horario.getHoraFin())) {
-            throw new HorarioDuplicadoException("El médico ya tiene un horario en ese rango de horas");
+        // Opcional: Verificar que no exista un horario duplicado en el mismo dia y rango de horas
+        if (horarioRepository.existsByHoraInicioAndHoraFinAndDia(
+                  horario.getHoraInicio(), horario.getHoraFin(), horario.getDia())) {
+            throw new HorarioDuplicadoException("Ya existe un horario para el dia "+ horario.getDia() + " en ese rango de horas");
         }
 
         // Guardar el nuevo horario

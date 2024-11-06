@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "medico_horario", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"consultorio_id", "horario_id"})
-})
-public class MedicoHorario {
+@Table(name = "medico_especialidad")
+public class MedicoEspecialidad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +21,8 @@ public class MedicoHorario {
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "consultorio_id", nullable = false)
-    private Consultorio consultorio;
+    @JoinColumn(name = "especialidad_id", nullable = false)
+    private Especialidad especialidad;
 
-    @ManyToOne
-    @JoinColumn(name = "horario_id", nullable = false)
-    private Horario horario;
-
-    private Integer cantDisponibles;
+    // Medico medico.id().getEspecialidad()
 }

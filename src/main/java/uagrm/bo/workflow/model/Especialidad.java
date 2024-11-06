@@ -22,13 +22,8 @@ public class Especialidad {
     private Long id;
     private String nombre;
 
-    @ManyToMany(mappedBy = "especialidades")
+    @OneToMany(mappedBy = "especialidad")
     @JsonIgnore
-    private List<Medico> medicos = new ArrayList<>();
+    private List<MedicoEspecialidad> medicos = new ArrayList<>();
 
-    // Método para agregar médico
-    public void addMedico(Medico medico) {
-        this.medicos.add(medico);
-        medico.getEspecialidades().add(this); // Asegura la relación bidireccional
-    }
 }

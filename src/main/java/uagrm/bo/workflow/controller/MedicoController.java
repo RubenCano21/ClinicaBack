@@ -27,9 +27,14 @@ public class MedicoController {
         return medicoService.listar();
     }
 
-    @GetMapping("/especialidad({especialidadId}")
-    public ResponseEntity<List<Medico>> especialidad(@PathVariable Long especialidadId) {
-        return new ResponseEntity<>(medicoService.findMedicoByEspecialidad(especialidadId), HttpStatus.OK);
+//    @GetMapping("/especialidad({especialidadId}")
+//    public ResponseEntity<List<Medico>> especialidad(@PathVariable Long especialidadId) {
+//        return new ResponseEntity<>(medicoService.findMedicoByEspecialidad(especialidadId), HttpStatus.OK);
+//    }
+
+    @GetMapping({"/{id}/especialidades"})
+    public ResponseEntity<?> obtenerEspecialidadesPorMedico(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(medicoService.obtenerEspecialidadesPorMedico(id));
     }
 
     @PostMapping

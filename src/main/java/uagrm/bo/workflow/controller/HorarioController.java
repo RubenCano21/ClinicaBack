@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uagrm.bo.workflow.exceptions.HorarioDuplicadoException;
 import uagrm.bo.workflow.model.Horario;
 import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.service.HorarioService;
@@ -30,16 +31,14 @@ public class HorarioController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<Horario> registrarHorario(@RequestBody Horario horario) {
+    public ResponseEntity<?> registrarHorario(@RequestBody Horario horario) {
 
-        // obtener la lista de medicos
-//        List<Medico> medicos = horario.getMedicos().stream()
-//                .map(m -> new Medico(m.getId()))
-//                .collect(Collectors.toList());
-//        horario.setMedicos(medicos);
-
-        Horario nuevoHorario = horarioService.crearHorario(horario);
-        return new ResponseEntity<>(nuevoHorario, HttpStatus.CREATED);
+        try {
+            Horario nuevoHorario = horarioService.crearHorario(horario);
+            return new ResponseEntity<>(nuevoHorario, HttpStatus.CREATED);
+        } catch (HorarioDuplicadoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

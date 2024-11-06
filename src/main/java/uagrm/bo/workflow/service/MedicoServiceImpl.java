@@ -7,7 +7,10 @@ import uagrm.bo.workflow.exceptions.EspecialidadNotFoundException;
 import uagrm.bo.workflow.exceptions.MedicoNotFoundException;
 import uagrm.bo.workflow.model.Especialidad;
 import uagrm.bo.workflow.model.Medico;
+import uagrm.bo.workflow.model.MedicoEspecialidad;
 import uagrm.bo.workflow.repository.EspecialidadRepository;
+import uagrm.bo.workflow.repository.MedicoEspecialidadRepository;
+import uagrm.bo.workflow.repository.MedicoHorarioRepository;
 import uagrm.bo.workflow.repository.MedicoRepository;
 
 import java.util.List;
@@ -20,6 +23,11 @@ public class MedicoServiceImpl implements MedicoService{
 
     @Autowired
     private EspecialidadRepository especialidadRepository;
+
+    @Autowired
+    private MedicoHorarioRepository medicoHorarioRepository;
+    @Autowired
+    private MedicoEspecialidadRepository medicoEspecialidadRepository;
 
 
     @Override
@@ -42,6 +50,9 @@ public class MedicoServiceImpl implements MedicoService{
         if (medicoRepository.existsMedicoByEmail(medico.getEmail())){
             throw new IllegalArgumentException("Correo invalido, verifique e intente nuevamente");
         }
+        if (medico.getEspecialidades() == null || medico.getEspecialidades().isEmpty()) {
+            throw new IllegalArgumentException("El medico debe tener al menos una especialidad");
+        }
         return medicoRepository.save(medico);
     }
 
@@ -60,11 +71,17 @@ public class MedicoServiceImpl implements MedicoService{
         return medicoRepository.save(medico);
     }
 
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Medico> findMedicoByEspecialidad(Long especialidadId) {
+//        Especialidad especialidad = especialidadRepository.findById(especialidadId)
+//                .orElseThrow(() -> new EspecialidadNotFoundException(especialidadId));
+//        return especialidad.getMedicos();
+//    }
+
     @Override
     @Transactional(readOnly = true)
-    public List<Medico> findMedicoByEspecialidad(Long especialidadId) {
-        Especialidad especialidad = especialidadRepository.findById(especialidadId)
-                .orElseThrow(() -> new EspecialidadNotFoundException(especialidadId));
-        return especialidad.getMedicos();
+    public List<MedicoEspecialidad> obtenerEspecialidadesPorMedico(Long medicoId) {
+        return medicoEspecialidadRepository.findByMedicoId(medicoId);
     }
 }

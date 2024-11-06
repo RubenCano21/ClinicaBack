@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uagrm.bo.workflow.dto.FichaDTO;
+import uagrm.bo.workflow.exceptions.ValidacionException;
 import uagrm.bo.workflow.model.Ficha;
+import uagrm.bo.workflow.repository.IntervaloHorarioRepository;
 import uagrm.bo.workflow.service.FichaService;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -17,21 +20,34 @@ public class FichaController {
     @Autowired
     private FichaService fichaService;
 
+    @Autowired
+    private IntervaloHorarioRepository intervaloHorarioRepository;
+
     @GetMapping
     public ResponseEntity<List<Ficha>> listarFichas() {
         return new  ResponseEntity<>(fichaService.listarFichas(), HttpStatus.OK);
     }
 
-    @PostMapping("/asignar")
-    public ResponseEntity<?> asignarFicha(@RequestParam Long pacienteId,
-                                              @RequestParam Long especialidadId,
-                                              @RequestParam Long medicoId,
-                                              @RequestParam Long horarioId) {
+
+    @PostMapping("/agendar")
+    public ResponseEntity<?> agendarFicha(@RequestBody FichaDTO request) {
+
         try {
-            Ficha ficha = fichaService.asignarFicha(pacienteId, especialidadId, medicoId, horarioId);
-            return new ResponseEntity<>(ficha, HttpStatus.CREATED);
-        } catch ( IllegalArgumentException e ) {
-            return new ResponseEntity<>(Collections.singletonMap("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+            fichaService.agendarFicha(request.getPacienteId(), request.getIntervaloId(), request.getFecha());
+            return ResponseEntity.ok("Ficha agendada correctamente");
+        } catch ( ValidacionException e ) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/agendarFicha")
+    public ResponseEntity<?> agendar(@RequestBody FichaDTO request) {
+        try {
+            fichaService.asignar(request.getPacienteId(), request.getEspecialidadId(), request.getMedicoId(),
+                request.getHorarioId(), request.getIntervaloId(), request.getFecha());
+            return ResponseEntity.ok("Ficha agendada correctamente");
+        } catch (ValidacionException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 

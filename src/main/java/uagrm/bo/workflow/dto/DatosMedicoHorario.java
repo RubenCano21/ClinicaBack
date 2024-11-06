@@ -8,4 +8,5 @@ public class DatosMedicoHorario {
     Long medicoId;
     Long consultorioId;
     Long horarioId;
+    Integer cantDisponibles;
 }

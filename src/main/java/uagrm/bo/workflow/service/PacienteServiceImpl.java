@@ -61,6 +61,7 @@ public class PacienteServiceImpl implements PacienteService{
     }
 
     @Override
+    @Transactional
     public Optional<Paciente> findPacienteById(Long id) {
         return pacienteRepository.findById(id);
     }
