@@ -2,14 +2,16 @@ package uagrm.bo.workflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import uagrm.bo.workflow.dto.IntervaloHorarioDTO;
 import uagrm.bo.workflow.model.IntervalosHorario;
 import uagrm.bo.workflow.model.MedicoHorario;
-import uagrm.bo.workflow.repository.HorarioRepository;
 import uagrm.bo.workflow.repository.IntervaloHorarioRepository;
 import uagrm.bo.workflow.repository.MedicoHorarioRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IntervaloHorarioServiceImpl implements IntervaloHorarioService{
@@ -23,8 +25,14 @@ public class IntervaloHorarioServiceImpl implements IntervaloHorarioService{
 
 
     @Override
-    public List<IntervalosHorario> listarIntervalosHorarios() {
-        return intervaloHorarioRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<IntervaloHorarioDTO> listarIntervalosHorarios() {
+        List<IntervalosHorario> intervalosHorarios = intervaloHorarioRepository.findAll();
+        return intervalosHorarios.stream().map(this::convertirAIntervaloHorarioDTO).collect(Collectors.toList());
+    }
+
+    private IntervaloHorarioDTO convertirAIntervaloHorarioDTO(IntervalosHorario intervalosHorario) {
+        return new IntervaloHorarioDTO(intervalosHorario);
     }
 
     @Override

@@ -84,4 +84,6 @@ public class MedicoHorarioServiceImpl implements MedicoHorarioService{
         return medicoHorarioRepository.findByMedicoIdAndConsultorioIdAndHorarioId(medicoId, consultorioId, horarioId)
                 .orElseThrow(() -> new RuntimeException("No se encontro el medicoHorario"));
     }
+
+
 }

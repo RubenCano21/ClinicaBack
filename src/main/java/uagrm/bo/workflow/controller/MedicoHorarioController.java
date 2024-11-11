@@ -5,13 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uagrm.bo.workflow.dto.DatosMedicoHorario;
-import uagrm.bo.workflow.model.Consultorio;
-import uagrm.bo.workflow.model.Horario;
-import uagrm.bo.workflow.model.Medico;
-import uagrm.bo.workflow.model.MedicoHorario;
+import uagrm.bo.workflow.dto.MedicoHorarioDTO;
+import uagrm.bo.workflow.model.*;
 import uagrm.bo.workflow.repository.ConsultorioRepository;
 import uagrm.bo.workflow.repository.HorarioRepository;
 import uagrm.bo.workflow.repository.MedicoRepository;
+import uagrm.bo.workflow.service.IntervaloHorarioService;
 import uagrm.bo.workflow.service.MedicoHorarioService;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class MedicoHorarioController {
 
     @Autowired
     private MedicoRepository medicoRepository;
+
 
     @Autowired
     private ConsultorioRepository consultorioRepository;
@@ -60,10 +60,10 @@ public class MedicoHorarioController {
     }
 
     @PostMapping("/generar-intervalos")
-    public ResponseEntity<?> generarIntervalos(@RequestBody DatosMedicoHorario datos) {
+    public ResponseEntity<?> generarIntervalos(@RequestBody MedicoHorarioDTO datos) {
         try {
-            MedicoHorario medicoHorario = medicoHorarioService.obtenerMedicoHorario(datos.getMedicoId(),
-                    datos.getConsultorioId(), datos.getHorarioId());
+            MedicoHorario medicoHorario = medicoHorarioService.obtenerMedicoHorario(datos.getMedico().getId(),
+                    datos.getMedico().getId(), datos.getHorario().getId());
 
             medicoHorarioService.generarIntervalos(medicoHorario, 15);
             return ResponseEntity.ok("Intervalos generados correctamente");
@@ -71,6 +71,7 @@ public class MedicoHorarioController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
+
 
 
 

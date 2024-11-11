@@ -40,6 +40,9 @@ public class FichaServiceImpl implements FichaService{
     @Autowired
     private MedicoEspecialidadRepository medicoEspecialidadRepository;
 
+    @Autowired
+    private EnfermeriaRepository enfermeriaRepository;
+
 
     @Override
     @Transactional
@@ -172,6 +175,11 @@ public class FichaServiceImpl implements FichaService{
         // Actualizar estado del intervalo de horario
         intervaloHorario.setEstado(EstadoIntervalo.RESERVADO);
         intervaloHorarioRepository.save(intervaloHorario);
+
+        // crear registro de enfermeria
+        Enfermeria enfermeria = new Enfermeria();
+        enfermeria.setFicha(ficha);
+        enfermeriaRepository.save(enfermeria);
 
         // Devolver detalles de la ficha creada en la respuesta
         return ResponseEntity.ok("Ficha agendada correctamente para el paciente " + paciente.getNombre());

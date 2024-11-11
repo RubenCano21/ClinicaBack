@@ -1,5 +1,6 @@
 package uagrm.bo.workflow.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -31,18 +32,8 @@ public class Medico {
 
     // Relación ManyToMany con Especialidad
     @OneToMany(mappedBy = "medico")
-    @JsonIgnore
+    @JsonBackReference
     private List<MedicoEspecialidad> especialidades = new ArrayList<>();
-
-
-    // Relación ManyToMany con Horario
-//    @ManyToMany
-//    @JoinTable(
-//            name = "medico_horario",
-//            joinColumns = @JoinColumn(name = "medico_id"),
-//            inverseJoinColumns = @JoinColumn(name = "horario_id")
-//    )
-//    private List<Horario> horarios = new ArrayList<>();
 
     // Relación OneToMany con Historial
     @OneToMany(mappedBy = "medico")
