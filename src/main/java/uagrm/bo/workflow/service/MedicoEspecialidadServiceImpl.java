@@ -18,6 +18,11 @@ public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
     private MedicoEspecialidadRepository medicoEspecialidadRepository;
 
     @Override
+    public List<MedicoEspecialidad> listar() {
+        return medicoEspecialidadRepository.findAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<MedicoEspecialidad> obtenerEspecialidadesPorMedico(Long medicoId) {
         return medicoEspecialidadRepository.findByMedicoId(medicoId);

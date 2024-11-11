@@ -29,6 +29,11 @@ public class MedicoEspecialidadController {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @GetMapping("/listar")
+    public ResponseEntity<?> listar() {
+        return ResponseEntity.ok(medicoEspecialidadService.listar());
+    }
+
     @GetMapping("/medico/{medicoId}")
     public ResponseEntity<?> obtenerEspecialidadesPorMedico(@PathVariable Long medicoId) {
         return ResponseEntity.ok(medicoEspecialidadService.obtenerEspecialidadesPorMedico(medicoId));

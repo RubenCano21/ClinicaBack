@@ -9,6 +9,8 @@ import java.util.List;
 public interface MedicoEspecialidadService {
 
 
+    List<MedicoEspecialidad> listar();
+
     List<MedicoEspecialidad> obtenerEspecialidadesPorMedico(Long medicoId);
 
     MedicoEspecialidad asignarEspecialidadAMedico(Medico medico, Especialidad especialidad);
