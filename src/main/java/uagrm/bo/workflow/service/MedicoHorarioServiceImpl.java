@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.model.*;
 import uagrm.bo.workflow.repository.IntervaloHorarioRepository;
 import uagrm.bo.workflow.repository.MedicoHorarioRepository;
+import uagrm.bo.workflow.repository.MedicoRepository;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -19,20 +20,23 @@ public class MedicoHorarioServiceImpl implements MedicoHorarioService{
 
     @Autowired
     private IntervaloHorarioRepository intervaloHorarioRepository;
+    @Autowired
+    private MedicoRepository medicoRepository;
 
     @Override
     @Transactional
     public void asignarHorario(Medico medico, Consultorio consultorio, Horario horario, Integer cantDisponibles) {
 
+        medico = medicoRepository.findById(medico.getId())
+                .orElseThrow(() -> new RuntimeException("No se encontro el medico con id: "));
+        if (medico == null || consultorio == null || horario == null){
+            throw new RuntimeException("Medico, consultorio y horario son requeridos");
+        }
         // verificamos si existe un medico asignado a un consultorio en un horario
         boolean existe = medicoHorarioRepository.existsByConsultorioAndHorario(consultorio, horario);
         if (existe){
             throw new RuntimeException("Ya existe un medico asignado a ese consultorio en ese horario");
         }
-        // si no existe el medico asignado a un consultorio en un horario
-        // generamos los intervalos de horario
-        //generarIntervalos(new MedicoHorario(medico, consultorio, horario, cantDisponibles), 30);
-
 
         // creamos la asignacion
         MedicoHorario medicoHorario = new MedicoHorario();

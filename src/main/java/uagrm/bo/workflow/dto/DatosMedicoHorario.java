@@ -1,12 +1,13 @@
 package uagrm.bo.workflow.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import uagrm.bo.workflow.model.MedicoHorario;
 
 @Data
-//@JsonIgnoreProperties({"medicoId", "consultorioId", "horarioId"})
+@AllArgsConstructor
+@NoArgsConstructor
 public class DatosMedicoHorario {
 
     Long medicoId;

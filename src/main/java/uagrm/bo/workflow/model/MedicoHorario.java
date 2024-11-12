@@ -1,12 +1,9 @@
 package uagrm.bo.workflow.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uagrm.bo.workflow.dto.DatosMedicoHorario;
 import uagrm.bo.workflow.dto.MedicoHorarioDTO;
 
 @Data
@@ -41,7 +38,7 @@ public class MedicoHorario {
 
 
     public MedicoHorario(MedicoHorarioDTO datosMedicoHorario) {
-        this.medico = datosMedicoHorario.getMedico();
+        this.medico = new Medico(datosMedicoHorario.getMedico().getId());
         this.consultorio = datosMedicoHorario.getConsultorio();
         this.horario = datosMedicoHorario.getHorario();
         this.cantDisponibles = datosMedicoHorario.getCantDisponibles();
