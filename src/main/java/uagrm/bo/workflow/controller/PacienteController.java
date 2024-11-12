@@ -24,6 +24,7 @@ public class PacienteController {
 
 
     //@PreAuthorize("hasRole('ADMIN')")
+    //localhost:8080/api/pacientes
     @GetMapping("/listar")
     public ResponseEntity<List<Paciente>> listar() {
         return new ResponseEntity<>(pacienteService.listar(), HttpStatus.OK);

@@ -1,13 +1,11 @@
 package uagrm.bo.workflow.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uagrm.bo.workflow.validation.ExistsByEmail;
+import uagrm.bo.workflow.dto.PacienteDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +42,18 @@ public class Paciente {
     private String direccion;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonIgnore
     private List<Historial> historiales;
+
+    public Paciente(PacienteDTO pacienteDTO){
+        this.id = pacienteDTO.getId();
+        this.ci = pacienteDTO.getCi();
+        this.nombre = pacienteDTO.getNombre();
+        this.apellido = pacienteDTO.getApellido();
+        this.fechaNacimiento = pacienteDTO.getFechaNacimiento();
+        this.email = pacienteDTO.getEmail();
+        this.telefono = pacienteDTO.getTelefono();
+        this.sexo = pacienteDTO.getSexo();
+        this.direccion = pacienteDTO.getDireccion();
+    }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import uagrm.bo.workflow.dto.EspecialidadDTO;
 import uagrm.bo.workflow.model.Especialidad;
 import uagrm.bo.workflow.service.EspecialidadService;
 
@@ -23,7 +24,7 @@ public class EspecialidadController {
 
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Especialidad>> listar() {
+    public ResponseEntity<List<EspecialidadDTO>> listar() {
         return new ResponseEntity<>(especialidadService.listar(), HttpStatus.OK);
     }
 

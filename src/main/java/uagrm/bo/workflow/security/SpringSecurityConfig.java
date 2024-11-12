@@ -66,7 +66,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/medicos/eliminar/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/fichas/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/fichas/asignar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/fichas/agendar").permitAll()
+                        //.requestMatchers(HttpMethod.POST, "/api/fichas/agendar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/fichas/agendarFicha").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/especialidad/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/especialidad/registrar").permitAll()

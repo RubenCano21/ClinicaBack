@@ -23,7 +23,6 @@ public class Especialidad {
     private String nombre;
 
     @OneToMany(mappedBy = "especialidad")
-    @JsonIgnore
     private List<MedicoEspecialidad> medicos = new ArrayList<>();
 
 }

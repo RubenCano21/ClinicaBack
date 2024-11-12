@@ -1,5 +1,6 @@
 package uagrm.bo.workflow.service;
 
+import uagrm.bo.workflow.dto.MedicoEspecialidadDTO;
 import uagrm.bo.workflow.model.Especialidad;
 import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.model.MedicoEspecialidad;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface MedicoEspecialidadService {
 
 
-    List<MedicoEspecialidad> listar();
+    List<MedicoEspecialidadDTO> listar();
 
     List<MedicoEspecialidad> obtenerEspecialidadesPorMedico(Long medicoId);
 

@@ -3,12 +3,14 @@ package uagrm.bo.workflow.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uagrm.bo.workflow.dto.MedicoEspecialidadDTO;
 import uagrm.bo.workflow.model.Especialidad;
 import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.model.MedicoEspecialidad;
 import uagrm.bo.workflow.repository.MedicoEspecialidadRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
@@ -18,8 +20,14 @@ public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
     private MedicoEspecialidadRepository medicoEspecialidadRepository;
 
     @Override
-    public List<MedicoEspecialidad> listar() {
-        return medicoEspecialidadRepository.findAll();
+    public List<MedicoEspecialidadDTO> listar() {
+        List<MedicoEspecialidad> medicoEspecialidadList = medicoEspecialidadRepository.findAll();
+
+        return medicoEspecialidadList.stream().map(this::convertirAMedicoEspecialidadDTO).collect(Collectors.toList());
+    }
+
+    private MedicoEspecialidadDTO convertirAMedicoEspecialidadDTO(MedicoEspecialidad medicoEspecialidad) {
+        return new MedicoEspecialidadDTO(medicoEspecialidad);
     }
 
     @Override

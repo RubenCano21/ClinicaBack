@@ -5,15 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import uagrm.bo.workflow.dto.DatosFichas;
+import uagrm.bo.workflow.dto.FichaDTO;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+//@EqualsAndHashCode(of = "id")
 @Data
 @Entity
-@Table(name = "fichas")
+@Table(name = "fichas", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"paciente_id", "medico_id", "medico_horario_id", "especialidad_id"})
+})
 public class Ficha {
 
     @Id
@@ -44,4 +48,15 @@ public class Ficha {
     private LocalDateTime fechaConsulta;
 
     private Integer cantDisponibles;
+
+
+    public Ficha(DatosFichas datos) {
+        this.paciente = datos.getPaciente();
+        this.especialidad = datos.getEspecialidad();
+        this.medico = datos.getMedico();
+        this.medicoHorario = datos.getMedicoHorario();
+        this.intervaloHorario = datos.getIntervalosHorario();
+        this.fechaConsulta = datos.getFecha();
+        this.cantDisponibles = datos.getCantDisponibles();
+    }
 }

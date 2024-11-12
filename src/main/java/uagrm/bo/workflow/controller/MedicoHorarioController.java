@@ -60,10 +60,10 @@ public class MedicoHorarioController {
     }
 
     @PostMapping("/generar-intervalos")
-    public ResponseEntity<?> generarIntervalos(@RequestBody MedicoHorarioDTO datos) {
+    public ResponseEntity<?> generarIntervalos(@RequestBody DatosMedicoHorario datos) {
         try {
-            MedicoHorario medicoHorario = medicoHorarioService.obtenerMedicoHorario(datos.getMedico().getId(),
-                    datos.getMedico().getId(), datos.getHorario().getId());
+            MedicoHorario medicoHorario = medicoHorarioService.obtenerMedicoHorario(datos.getMedicoId(),
+                    datos.getConsultorioId(), datos.getHorarioId());
 
             medicoHorarioService.generarIntervalos(medicoHorario, 15);
             return ResponseEntity.ok("Intervalos generados correctamente");
