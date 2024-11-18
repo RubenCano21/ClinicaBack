@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableMethodSecurity(prePostEnabled=true)
+@EnableMethodSecurity
 public class SpringSecurityConfig {
 
     @Autowired
@@ -52,6 +52,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/pacientes/listar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pacientes/listar-pagina").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/pacientes/registrar").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/pacientes/actualizar/{id}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/pacientes/eliminar/{id}").permitAll()
@@ -59,14 +60,15 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/medicos/{id}/especialidades").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/medicos/especialidad/{especialidadId}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/medico-especialidad/listar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/medico-especialidad/listar-pagina").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/medico-especialidad/medico/{medicoId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/medico-especialidad/especialidad/{especialidadId}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/medico-especialidad/asignar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/medicos/registrar").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/medicos/actualizar/{id}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/medicos/eliminar/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/fichas/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/fichas/asignar").permitAll()
-                        //.requestMatchers(HttpMethod.POST, "/api/fichas/agendar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/fichas/agendarFicha").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/especialidad/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/especialidad/registrar").permitAll()
@@ -79,7 +81,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/medico-horarios/asignar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/medico-horarios/generar-intervalos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/intervalo-horarios/listar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/consultorios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/consultorios/listar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/consultorios/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/consultorios/registrar").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/consultorios/{id}").permitAll()
@@ -89,8 +91,6 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/estado-intervalo").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/enfermeria/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/enfermeria/guardar").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/reports/excel").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/reports/send-email").permitAll()
                         .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))

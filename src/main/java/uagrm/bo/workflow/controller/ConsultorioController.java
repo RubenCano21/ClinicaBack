@@ -18,7 +18,7 @@ public class ConsultorioController {
     @Autowired
     private ConsultorioService consultorioService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<Consultorio>> listarConsultorios() {
         List<Consultorio> consultorios = consultorioService.listarConsultorios();
         return ResponseEntity.ok(consultorios);

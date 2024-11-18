@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import uagrm.bo.workflow.model.Consultorio;
 import uagrm.bo.workflow.model.Horario;
+import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.model.MedicoHorario;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,6 +16,8 @@ public interface MedicoHorarioRepository extends JpaRepository<MedicoHorario, Lo
     boolean existsByConsultorioAndHorario(Consultorio consultorio, Horario horario);
 
     Optional<MedicoHorario> findByMedicoIdAndConsultorioIdAndHorarioId(Long medicoId, Long consultorioId, Long horarioId);
+
+    List<MedicoHorario> findByMedico(Medico medico);
 
 //    Integer countByMedicoAndConsultorioAndHorario(Medico medico, Consultorio consultorio, Horario horario);
 //

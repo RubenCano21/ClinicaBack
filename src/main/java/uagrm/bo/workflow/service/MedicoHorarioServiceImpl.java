@@ -20,6 +20,7 @@ public class MedicoHorarioServiceImpl implements MedicoHorarioService{
 
     @Autowired
     private IntervaloHorarioRepository intervaloHorarioRepository;
+
     @Autowired
     private MedicoRepository medicoRepository;
 

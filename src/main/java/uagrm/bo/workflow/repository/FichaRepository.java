@@ -18,4 +18,6 @@ public interface FichaRepository extends JpaRepository<Ficha, Long> {
     boolean existsByMedicoIdAndFechaConsulta(Long medicoId, LocalDateTime fecha);
 
 
+
+
 }

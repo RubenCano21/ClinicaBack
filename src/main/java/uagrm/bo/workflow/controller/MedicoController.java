@@ -27,10 +27,6 @@ public class MedicoController {
         return medicoService.listar();
     }
 
-//    @GetMapping("/especialidad({especialidadId}")
-//    public ResponseEntity<List<Medico>> especialidad(@PathVariable Long especialidadId) {
-//        return new ResponseEntity<>(medicoService.findMedicoByEspecialidad(especialidadId), HttpStatus.OK);
-//    }
 
     @GetMapping({"/{id}/especialidades"})
     public ResponseEntity<?> obtenerEspecialidadesPorMedico(@PathVariable Long id) {
@@ -74,9 +70,6 @@ public class MedicoController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
-
-
-
 
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errores = new HashMap<>();

@@ -1,7 +1,5 @@
 package uagrm.bo.workflow.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +23,7 @@ public class Especialidad {
     @OneToMany(mappedBy = "especialidad")
     private List<MedicoEspecialidad> medicos = new ArrayList<>();
 
+    public Especialidad(Long especialidad) {
+        this.id = especialidad;
+    }
 }

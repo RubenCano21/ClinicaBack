@@ -1,5 +1,7 @@
 package uagrm.bo.workflow.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uagrm.bo.workflow.model.Paciente;
 
 import java.util.List;
@@ -16,6 +18,8 @@ public interface PacienteService {
     boolean existsByEmail(String email);
 
     Optional<Paciente> findPacienteById(Long id);
+
+    Page<Paciente> listarPagina(Pageable pageable, String nombreFiltro);
 
     //api/pacientes/listar/registrar/eliminar
 }

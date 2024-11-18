@@ -3,10 +3,9 @@ package uagrm.bo.workflow.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uagrm.bo.workflow.dto.DatosFichas;
-import uagrm.bo.workflow.dto.FichaDTO;
+import uagrm.bo.workflow.dto.DatosReservaFicha;
 
 import java.time.LocalDateTime;
 
@@ -59,4 +58,13 @@ public class Ficha {
         this.fechaConsulta = datos.getFecha();
         this.cantDisponibles = datos.getCantDisponibles();
     }
+
+//    public Ficha(DatosReservaFicha reservaFicha){
+//        this.paciente = new Paciente(reservaFicha.getPacienteId());
+//        this.especialidad = new Especialidad(reservaFicha.getEspecialidadId());
+//        this.medico = new Medico(reservaFicha.getMedicoId());
+//        this.medicoHorario = new MedicoHorario(reservaFicha.getMedicoHorarioId());
+//        this.intervaloHorario = new IntervalosHorario(reservaFicha.getIntervaloHorarioId());
+//        this.fechaConsulta = reservaFicha.getFechaConsulta();
+//    }
 }

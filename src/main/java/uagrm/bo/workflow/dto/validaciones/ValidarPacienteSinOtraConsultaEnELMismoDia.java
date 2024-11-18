@@ -14,9 +14,9 @@ public class ValidarPacienteSinOtraConsultaEnELMismoDia implements ValidadorDeFi
 
     public void validar(DatosReservaFicha datos){
 
-        var primerHorario = datos.fecha().withHour(8);
-        var ultimoHorario = datos.fecha().withHour(18);
-        var pacienteTieneOtraConsulta = fichaRepository.existsByPacienteIdAndFechaConsultaBetween(datos.pacienteId(), primerHorario, ultimoHorario);
+        var primerHorario = datos.getFechaConsulta().withHour(8);
+        var ultimoHorario = datos.getFechaConsulta().withHour(18);
+        var pacienteTieneOtraConsulta = fichaRepository.existsByPacienteIdAndFechaConsultaBetween(datos.getPacienteId(), primerHorario, ultimoHorario);
         if (pacienteTieneOtraConsulta){
             throw new RuntimeException("El paciente ya tiene una consulta en el mismo dia");
         }

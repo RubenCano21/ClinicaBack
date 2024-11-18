@@ -1,6 +1,8 @@
 package uagrm.bo.workflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.exceptions.PacienteNotFoundException;
@@ -64,5 +66,14 @@ public class PacienteServiceImpl implements PacienteService{
     @Transactional
     public Optional<Paciente> findPacienteById(Long id) {
         return pacienteRepository.findById(id);
+    }
+
+    @Override
+    public Page<Paciente> listarPagina(Pageable pageable, String nombreFiltro) {
+        if (nombreFiltro != null && !nombreFiltro.isEmpty()) {
+            return pacienteRepository.findByNombreContaining(nombreFiltro, pageable);
+        } else {
+            return pacienteRepository.findAll(pageable);
+        }
     }
 }

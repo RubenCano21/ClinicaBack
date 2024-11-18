@@ -1,15 +1,12 @@
 package uagrm.bo.workflow.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uagrm.bo.workflow.model.Historial;
 import uagrm.bo.workflow.model.Paciente;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor

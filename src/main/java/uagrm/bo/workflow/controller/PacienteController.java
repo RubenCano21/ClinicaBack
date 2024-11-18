@@ -2,6 +2,9 @@ package uagrm.bo.workflow.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,10 +27,19 @@ public class PacienteController {
 
 
     //@PreAuthorize("hasRole('ADMIN')")
-    //localhost:8080/api/pacientes
     @GetMapping("/listar")
     public ResponseEntity<List<Paciente>> listar() {
         return new ResponseEntity<>(pacienteService.listar(), HttpStatus.OK);
+    }
+
+    @GetMapping("/listar-pagina")
+    public Page<Paciente> listarPagina( @RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int size,
+                                        @RequestParam(required = false) String nombreFiltro) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return pacienteService.listarPagina(pageable, nombreFiltro);
+
     }
 
     // metodo para buscar un paciente por el id

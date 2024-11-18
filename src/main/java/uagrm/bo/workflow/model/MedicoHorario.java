@@ -21,26 +21,27 @@ public class MedicoHorario {
 
     @ManyToOne
     @JoinColumn(name = "medico_id", nullable = false)
-    //@JsonBackReference
     private Medico medico;
 
     @ManyToOne
     @JoinColumn(name = "consultorio_id", nullable = false)
-    //@JsonBackReference
     private Consultorio consultorio;
 
     @ManyToOne
     @JoinColumn(name = "horario_id", nullable = false)
-    //@JsonBackReference
     private Horario horario;
 
     private Integer cantDisponibles;
 
 
     public MedicoHorario(MedicoHorarioDTO datosMedicoHorario) {
-        this.medico = new Medico(datosMedicoHorario.getMedico().getId());
+        this.medico = datosMedicoHorario.getMedico();
         this.consultorio = datosMedicoHorario.getConsultorio();
         this.horario = datosMedicoHorario.getHorario();
         this.cantDisponibles = datosMedicoHorario.getCantDisponibles();
+    }
+
+    public MedicoHorario(Long medicoHorarioId) {
+        this.id = medicoHorarioId;
     }
 }

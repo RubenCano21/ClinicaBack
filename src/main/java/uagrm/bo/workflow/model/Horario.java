@@ -19,12 +19,7 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relación ManyToMany con Medico
-//    @ManyToMany(mappedBy = "horarios")
-//    @JsonIgnore
-//    private List<Medico> medicos = new ArrayList<>();
-
-    //@NotNull
+    @NotNull
     private String dia;
 
     @NotNull
@@ -33,11 +28,4 @@ public class Horario {
     @NotNull
     private LocalTime horaFin;
 
-//    @Min(1) //minimo una ficha se le debe asignar
-//    private Integer capacidad; // Cantidad de fichas por horario
-
-    // relacion con consultorio (un horario pertenece a un consultorio especifico)♠
-//    @ManyToOne
-//    @JoinColumn(name = "consultorio_id")
-//    private Consultorio consultorio;
 }

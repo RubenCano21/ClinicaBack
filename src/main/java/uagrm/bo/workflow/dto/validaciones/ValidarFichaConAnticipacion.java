@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ValidarFichaConAnticipacion implements ValidadorDeFichas {
 
     public void validar(DatosReservaFicha datos) {
-        var fechaConsulta = datos.fecha();
+        var fechaConsulta = datos.getFechaConsulta();
         var ahora = LocalDateTime.now();
         var diferenciaEnMinutos = Duration.between(ahora, fechaConsulta).toMinutes();
 

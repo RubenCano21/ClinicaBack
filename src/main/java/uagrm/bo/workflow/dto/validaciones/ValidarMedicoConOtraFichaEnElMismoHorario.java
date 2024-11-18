@@ -12,7 +12,7 @@ public class ValidarMedicoConOtraFichaEnElMismoHorario implements ValidadorDeFic
     private FichaRepository fichaRepository;
 
     public void validar(DatosReservaFicha datos) {
-        var medicoTieneOtraFichaEnElMismoHorario = fichaRepository.existsByMedicoIdAndFechaConsulta(datos.medicoId(), datos.fecha());
+        var medicoTieneOtraFichaEnElMismoHorario = fichaRepository.existsByMedicoIdAndFechaConsulta(datos.getMedicoId(), datos.getFechaConsulta());
         if (medicoTieneOtraFichaEnElMismoHorario) {
             throw new RuntimeException("El medico ya tiene una ficha en el mismo horario");
         }

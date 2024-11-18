@@ -1,6 +1,8 @@
 package uagrm.bo.workflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.dto.MedicoEspecialidadDTO;
@@ -19,12 +21,6 @@ public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
     @Autowired
     private MedicoEspecialidadRepository medicoEspecialidadRepository;
 
-    @Override
-    public List<MedicoEspecialidadDTO> listar() {
-        List<MedicoEspecialidad> medicoEspecialidadList = medicoEspecialidadRepository.findAll();
-
-        return medicoEspecialidadList.stream().map(this::convertirAMedicoEspecialidadDTO).collect(Collectors.toList());
-    }
 
     private MedicoEspecialidadDTO convertirAMedicoEspecialidadDTO(MedicoEspecialidad medicoEspecialidad) {
         return new MedicoEspecialidadDTO(medicoEspecialidad);
@@ -32,13 +28,21 @@ public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<MedicoEspecialidad> obtenerEspecialidadesPorMedico(Long medicoId) {
-        return medicoEspecialidadRepository.findByMedicoId(medicoId);
+    public List<MedicoEspecialidadDTO> obtenerEspecialidadesPorMedico(Long medicoId) {
+        List<MedicoEspecialidad> medicoEspecialidadList = medicoEspecialidadRepository.findByMedicoId(medicoId);
+        return medicoEspecialidadList.stream().map(this::convertirAMedicoEspecialidadDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MedicoEspecialidadDTO> obtenerMedicosPorEspecialidad(Long especialidadId) {
+        List<MedicoEspecialidad> medicoEspecialidadList = medicoEspecialidadRepository.findByEspecialidadId(especialidadId);
+        return medicoEspecialidadList.stream().map(this::convertirAMedicoEspecialidadDTO).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public MedicoEspecialidad asignarEspecialidadAMedico(Medico medico, Especialidad especialidad) {
+    public void asignarEspecialidadAMedico(Medico medico, Especialidad especialidad) {
 
         //verificamos si existe una especialidad asignada a un medico
         boolean existe = medicoEspecialidadRepository.existsByMedicoAndEspecialidad(medico, especialidad);
@@ -51,6 +55,22 @@ public class MedicoEspecialidadServiceImpl implements MedicoEspecialidadService{
         medicoEspecialidad.setMedico(medico);
         medicoEspecialidad.setEspecialidad(especialidad);
 
-        return medicoEspecialidadRepository.save(medicoEspecialidad);
+        medicoEspecialidadRepository.save(medicoEspecialidad);
+    }
+
+    @Override
+    public Page<MedicoEspecialidad> listarPaginaMedicoEspecialidad(Pageable pageable, String nombreFiltro) {
+        if (nombreFiltro != null && !nombreFiltro.isEmpty()) {
+            return medicoEspecialidadRepository.findByMedicoNombreContaining(nombreFiltro, pageable);
+        } else {
+            return medicoEspecialidadRepository.findAll(pageable);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MedicoEspecialidad> listarMedicosYEspecialidades() {
+        return medicoEspecialidadRepository.findAll();
+        //return medicoEspecialidadList.stream().map(this::convertirAMedicoEspecialidadDTO).collect(Collectors.toList());
     }
 }

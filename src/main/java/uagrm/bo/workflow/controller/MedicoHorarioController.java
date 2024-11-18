@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uagrm.bo.workflow.dto.DatosMedicoHorario;
-import uagrm.bo.workflow.dto.MedicoHorarioDTO;
 import uagrm.bo.workflow.model.*;
 import uagrm.bo.workflow.repository.ConsultorioRepository;
 import uagrm.bo.workflow.repository.HorarioRepository;

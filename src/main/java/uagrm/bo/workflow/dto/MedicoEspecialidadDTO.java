@@ -2,6 +2,8 @@ package uagrm.bo.workflow.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import uagrm.bo.workflow.model.Especialidad;
+import uagrm.bo.workflow.model.Medico;
 import uagrm.bo.workflow.model.MedicoEspecialidad;
 
 @Setter
@@ -10,16 +12,14 @@ public class MedicoEspecialidadDTO {
 
 
     private Long id;
-    private Long medicoId;
-    private Long especialidadId;
+    private Medico medico;
+    private Especialidad especialidad;
 
-    public MedicoEspecialidadDTO() {
-    }
 
     public MedicoEspecialidadDTO(MedicoEspecialidad medicoEspecialidad) {
         this.id = medicoEspecialidad.getId();
-        this.medicoId = medicoEspecialidad.getMedico().getId();
-        this.especialidadId = medicoEspecialidad.getEspecialidad().getId();
+        this.medico = medicoEspecialidad.getMedico();
+        this.especialidad = medicoEspecialidad.getEspecialidad();
     }
 
 }

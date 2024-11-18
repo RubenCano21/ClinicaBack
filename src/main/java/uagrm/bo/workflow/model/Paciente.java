@@ -44,7 +44,7 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Historial> historiales;
 
-    public Paciente(PacienteDTO pacienteDTO){
+    public Paciente(@org.jetbrains.annotations.NotNull PacienteDTO pacienteDTO){
         this.id = pacienteDTO.getId();
         this.ci = pacienteDTO.getCi();
         this.nombre = pacienteDTO.getNombre();
@@ -56,4 +56,7 @@ public class Paciente {
         this.direccion = pacienteDTO.getDireccion();
     }
 
+    public Paciente(Long pacienteId) {
+        this.id = pacienteId;
+    }
 }

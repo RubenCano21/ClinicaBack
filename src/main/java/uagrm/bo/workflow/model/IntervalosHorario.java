@@ -29,14 +29,12 @@ public class IntervalosHorario {
 
     @ManyToOne
     @JoinColumn(name = "medico_horario_id")
-    //@JsonIgnore
     private MedicoHorario medicoHorario;
 
     @Enumerated(EnumType.STRING)
     private EstadoIntervalo estado = EstadoIntervalo.LIBRE;
 
     @OneToOne(mappedBy = "intervaloHorario")
-    //@JsonIgnore
     private Ficha ficha;
 
     public IntervalosHorario(IntervaloHorarioDTO horarioDTO){
@@ -47,4 +45,8 @@ public class IntervalosHorario {
         this.ficha = new Ficha();
         this.ficha.setId(horarioDTO.getFichaId());
     }
-} 
+
+    public IntervalosHorario(Long intervaloHorarioId) {
+        this.id = intervaloHorarioId;
+    }
+}
