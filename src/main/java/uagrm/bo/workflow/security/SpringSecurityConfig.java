@@ -91,6 +91,8 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/estado-intervalo").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/enfermeria/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/enfermeria/guardar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/chatbot/send").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/chatbot/webhook").permitAll()
                         .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))

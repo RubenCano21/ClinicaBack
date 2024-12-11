@@ -1,5 +1,7 @@
 package uagrm.bo.workflow.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import uagrm.bo.workflow.model.IntervalosHorario;
@@ -12,4 +14,8 @@ public interface IntervaloHorarioRepository extends JpaRepository<IntervalosHora
 
 
     List<IntervalosHorario> findByMedicoHorario(MedicoHorario horario);
+
+    Page<IntervalosHorario> findByMedicoHorario(MedicoHorario medicoHorario, Pageable pageable);
+
+    Page<IntervalosHorario> findByMedicoHorarioContains(String nombreFiltro, Pageable pageable);
 }

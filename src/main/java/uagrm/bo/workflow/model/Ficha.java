@@ -3,15 +3,15 @@ package uagrm.bo.workflow.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uagrm.bo.workflow.dto.DatosFichas;
-import uagrm.bo.workflow.dto.DatosReservaFicha;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-//@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id")
 @Data
 @Entity
 @Table(name = "fichas", uniqueConstraints = {
@@ -33,7 +33,7 @@ public class Ficha {
 
 
     @ManyToOne
-    @JoinColumn(name = "medico_id")
+    @JoinColumn(name =   "medico_id")
     private Medico medico;
 
     @ManyToOne
@@ -59,12 +59,4 @@ public class Ficha {
         this.cantDisponibles = datos.getCantDisponibles();
     }
 
-//    public Ficha(DatosReservaFicha reservaFicha){
-//        this.paciente = new Paciente(reservaFicha.getPacienteId());
-//        this.especialidad = new Especialidad(reservaFicha.getEspecialidadId());
-//        this.medico = new Medico(reservaFicha.getMedicoId());
-//        this.medicoHorario = new MedicoHorario(reservaFicha.getMedicoHorarioId());
-//        this.intervaloHorario = new IntervalosHorario(reservaFicha.getIntervaloHorarioId());
-//        this.fechaConsulta = reservaFicha.getFechaConsulta();
-//    }
 }

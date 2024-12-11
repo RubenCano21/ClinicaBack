@@ -1,5 +1,7 @@
 package uagrm.bo.workflow.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uagrm.bo.workflow.dto.IntervaloHorarioDTO;
 import uagrm.bo.workflow.model.IntervalosHorario;
 
@@ -15,4 +17,6 @@ public interface IntervaloHorarioService {
     IntervalosHorario guardarIntervaloHorario(IntervalosHorario intervaloHorario);
 
     void eliminarIntervaloHorario(Long id);
+
+    Page<IntervalosHorario> listarIntervalosHorarios(Pageable pageable, String nombreFiltro);
 }

@@ -138,63 +138,6 @@ public class FichaServiceImpl implements FichaService{
     }
 
 
-
-
-//    @Override
-//    @Transactional
-//    public ResponseEntity<?> asignar(Long pacienteId, Long especialidadId, Long medicoId, Long horarioId,
-//                                     Long intervaloId, LocalDateTime fecha) {
-//
-//        // Verificar existencia de especialidad
-//        Especialidad especialidad = verificarExistenciaEspecialidad(especialidadId);
-//
-//        // Verificar existencia de médico
-//        Medico medico = verificarExistenciaMedico(medicoId);
-//
-//
-//        MedicoEspecialidad medicoEspecialidad = verificarExistenciaEspecialidadYMedico(medico, especialidad);
-//
-//        // Verificar existencia de horario
-//        MedicoHorario horario = verificarExistenciaHorario(horarioId);
-//
-//
-//        // Verificar existencia de intervalo de horario
-//        IntervalosHorario intervaloHorario = verificarExistenciaIntervaloHorario(intervaloId);
-//
-//        // Verificar existencia de paciente
-//        Paciente paciente = verificarExistenciaPaciente(pacienteId);
-//
-//        // Verificar disponibilidad del intervalo de horario
-//        if (!intervaloHorario.getEstado().equals(EstadoIntervalo.LIBRE)) {
-//            throw new ValidacionException("El intervalo de horario ya está ocupado");
-//        }
-//
-//
-//        // Crear y guardar la ficha
-//        Ficha ficha = new Ficha();
-//        ficha.setMedico(medico);  // Solo una vez, usando el objeto 'medico' recuperado
-//        ficha.setPaciente(paciente);
-//        ficha.setMedicoHorario(horario);
-//        ficha.setEspecialidad(especialidad);
-//        ficha.setIntervaloHorario(intervaloHorario);
-//        ficha.setFechaConsulta(fecha);
-//        ficha.setCantDisponibles(horario.getCantDisponibles()-1);
-//
-//        fichaRepository.save(ficha);
-//
-//        // Actualizar estado del intervalo de horario
-//        intervaloHorario.setEstado(EstadoIntervalo.RESERVADO);
-//        intervaloHorarioRepository.save(intervaloHorario);
-//
-//        // crear registro de enfermeria
-//        Enfermeria enfermeria = new Enfermeria();
-//        enfermeria.setFicha(ficha);
-//        enfermeriaRepository.save(enfermeria);
-//
-//        // Devolver detalles de la ficha creada en la respuesta
-//        return ResponseEntity.ok("Ficha agendada correctamente para el paciente " + paciente.getNombre());
-//    }
-
     private MedicoEspecialidad verificarExistenciaEspecialidadYMedico(Medico medico, Especialidad especialidad) {
         if (medicoEspecialidadRepository.existsByMedicoAndEspecialidad(medico, especialidad)) {
             return medicoEspecialidadRepository.findByMedicoAndEspecialidad(medico, especialidad);

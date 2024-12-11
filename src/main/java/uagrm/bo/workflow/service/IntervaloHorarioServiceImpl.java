@@ -1,6 +1,8 @@
 package uagrm.bo.workflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.dto.IntervaloHorarioDTO;
@@ -56,5 +58,14 @@ public class IntervaloHorarioServiceImpl implements IntervaloHorarioService{
     @Override
     public void eliminarIntervaloHorario(Long id) {
 
+    }
+
+    @Override
+    public Page<IntervalosHorario> listarIntervalosHorarios(Pageable pageable, String nombreFiltro) {
+        if (nombreFiltro != null && !nombreFiltro.isEmpty()) {
+            return intervaloHorarioRepository.findByMedicoHorarioContains(nombreFiltro, pageable);
+        }else {
+            return intervaloHorarioRepository.findAll(pageable);
+        }
     }
 }
